@@ -1,14 +1,3 @@
- // Preloader
-        window.addEventListener('load', function() {
-            const preloader = document.querySelector('.preloader');
-            setTimeout(() => {
-                preloader.classList.add('fade-out');
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 500);
-            }, 1500);
-        });
-
         // Sticky Header
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
@@ -44,7 +33,7 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 55,
                         behavior: 'smooth'
                     });
                 }
