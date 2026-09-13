@@ -139,6 +139,27 @@
         createParticles();
 
         // Form Submission
+        // const contactForm = document.querySelector('.contact-form form');
+        // if (contactForm) {
+        //     contactForm.addEventListener('submit', function(e) {
+        //         e.preventDefault();
+                
+        //         // Get form values
+        //         const name = document.getElementById('name').value;
+        //         const email = document.getElementById('email').value;
+        //         const subject = document.getElementById('subject').value;
+        //         const message = document.getElementById('message').value;
+                
+        //         // Here you would typically send the data to a server
+        //         // For this example, we'll just show an alert
+        //         alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon.`);
+                
+        //         // Reset the form
+        //         this.reset();
+        //     });
+        // }
+
+        // Form Submission
         const contactForm = document.querySelector('.contact-form form');
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
@@ -150,11 +171,34 @@
                 const subject = document.getElementById('subject').value;
                 const message = document.getElementById('message').value;
                 
-                // Here you would typically send the data to a server
-                // For this example, we'll just show an alert
-                alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon.`);
+                // Change the button text while sending
+                const submitBtn = document.querySelector('.form-btn');
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.innerText = "Sending...";
                 
-                // Reset the form
-                this.reset();
+                // Send data using FormSubmit API
+                fetch("https://formsubmit.co/ajax/bilal.innovates@gmail.com", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        subject: subject,
+                        message: message
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(`Thank you, ${name}! Your message has been sent directly to my email.`);
+                    contactForm.reset();
+                    submitBtn.innerText = originalBtnText;
+                })
+                .catch(error => {
+                    alert("Oops! There was a problem sending your message. Please try again.");
+                    submitBtn.innerText = originalBtnText;
+                });
             });
         }
